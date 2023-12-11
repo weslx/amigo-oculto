@@ -21,9 +21,10 @@ model User {
 
 model Party {
   id Int @id @default(autoincrement())
-  NomeGrupo String? 
+  NomeGrupo String?
   Tag String? @unique
   quantidadePessoa Int 
-  userId Int 
+  userId Int
+  emailDono String?
   user User @relation(fields: [userId], references: [id]) 
 }
