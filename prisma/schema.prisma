@@ -16,7 +16,8 @@ model User {
   sobrenome String
   email String? @unique
   senha String?
-  parties Party[]
+  parties UserParty[]
+  ownedParties Party[]
 }
 
 model Party {
@@ -24,7 +25,16 @@ model Party {
   NomeGrupo String?
   Tag String? @unique
   quantidadePessoa Int 
+  ownerId Int
+  owner User @relation(fields: [ownerId], references: [id])
+  users UserParty[]
+}
+
+model UserParty {
   userId Int
-  emailDono String?
-  user User @relation(fields: [userId], references: [id]) 
+  partyId Int
+  user User @relation(fields: [userId], references: [id])
+  party Party @relation(fields: [partyId], references: [id])
+
+  @@id([userId, partyId])
 }

@@ -24,25 +24,21 @@ class JoinParty {
 
     // If the party doesn't exist, return an error
     if (!GrupoExistente) {
-      return res.status(400).json({ error: "Party not found" });
+      return res.status(400).json({ error: "Grupo nao existe" });
     }
 
     try {
-      const EntrarGrupo = await prisma.Party.update({
-        where: {
-          id: EntrarGrupo.id,
-        },
+      const EntrarGrupo = await prisma.UserParty.create({
         data: {
-          user: {
-            connect: {
-              id: user.id,
-            },
-          },
+          userId: user.id,
+          partyId: GrupoExistente.id,
         },
       });
       return res.status(200).json(EntrarGrupo);
     } catch (error) {
-      return res.status(400).json(error);
+      return res
+        .status(400)
+        .json("Ocorreu um erro, talvez voce ja esta nesse grupo...");
     }
   }
 }

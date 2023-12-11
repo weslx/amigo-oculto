@@ -24,12 +24,14 @@ class CreateParty {
           NomeGrupo: NomeGrupo,
           Tag: Tag,
           quantidadePessoa: quantidadePessoa,
-          emailDono: email,
-          user: {
-            connect: {
-              email: email,
-            },
-          },
+          ownerId: user.id,
+        },
+      });
+
+      await prisma.UserParty.create({
+        data: {
+          userId: user.id,
+          partyId: CriarGrupo.id,
         },
       });
       return res.status(200).json({ message: "Usuario Criado" });
