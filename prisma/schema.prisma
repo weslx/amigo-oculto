@@ -12,16 +12,18 @@ datasource db {
 
 model User {
   id Int @id @default(autoincrement())
-  name String
-  surname String
-  email String @unique
+  nome String
+  sobrenome String
+  email String? @unique
+  senha String?
   parties Party[]
 }
 
 model Party {
   id Int @id @default(autoincrement())
-  groupName String 
-  numberOfPeople Int 
+  NomeGrupo String? 
+  Tag String? @unique
+  quantidadePessoa Int 
   userId Int 
   user User @relation(fields: [userId], references: [id]) 
 }
