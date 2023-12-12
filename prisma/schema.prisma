@@ -17,8 +17,9 @@ model User {
   sobrenome String
   email String? @unique
   senha String?
-  parties UserParty[]
+  parties UserParty[] @relation("UserToUserParty")
   ownedParties Party[]
+  secretFriends UserParty[] @relation("SecretFriendToUserParty")
 }
 
 model Party {
@@ -34,9 +35,11 @@ model Party {
 model UserParty {
   userId Int
   partyId Int
+  secretFriendId Int?
   status String @default("PENDING")
-  user User @relation(fields: [userId], references: [id])
+  user User @relation("UserToUserParty", fields: [userId], references: [id])
   party Party @relation(fields: [partyId], references: [id])
+  secretFriend User? @relation("SecretFriendToUserParty", fields: [secretFriendId], references: [id])
 
   @@id([userId, partyId])
 }
