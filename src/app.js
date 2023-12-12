@@ -12,7 +12,10 @@ class App {
     this.app.use(cors());
     this.app.use(express.json());
     this.app.use((req, res, next) => {
-      res.header("Access-Control-Allow-Origin", "*");
+      res.header(
+        "Access-Control-Allow-Origin",
+        "https://amigo-secreto-react-next.vercel.app"
+      );
       next();
     });
   }
