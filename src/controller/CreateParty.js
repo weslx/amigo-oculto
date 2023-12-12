@@ -1,4 +1,4 @@
-import generateCode from "../models/generateinvitecode.js";
+import generateCode from "../utils/generateinvitecode.js";
 import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
