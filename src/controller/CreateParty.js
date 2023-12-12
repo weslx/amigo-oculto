@@ -32,6 +32,7 @@ class CreateParty {
         data: {
           userId: user.id,
           partyId: CriarGrupo.id,
+          status: "ACCEPTED",
         },
       });
       return res.status(200).json({ message: "Grupo criado" });

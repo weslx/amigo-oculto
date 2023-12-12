@@ -56,7 +56,7 @@ class AllowParty {
       },
     });
 
-    return resposta.json(statusAtualizadoUserParty);
+    return res.json(statusAtualizadoUserParty);
   }
 }
 

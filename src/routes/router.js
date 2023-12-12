@@ -5,6 +5,7 @@ import JoinParty from "../controller/JoinParty.js";
 import OwnerAllowParty from "../controller/OwnerAllowParty.js";
 import ShowParties from "../controller/ShowOwnedParty.js";
 import RandomUser from "../controller/RandomUser.js";
+import ShowFriends from "../controller/ShowFriends.js";
 
 const routes = new Router();
 
@@ -19,6 +20,8 @@ routes.post("/criarparty", CreateParty.create);
 routes.get("/todasparties", ShowParties.get);
 
 routes.post("/girar", RandomUser.random);
+
+routes.get("/mostraramigos", ShowFriends.get);
 
 routes.get("/", (req, res) => {
   res.send("Teste");
