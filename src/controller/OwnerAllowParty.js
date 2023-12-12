@@ -12,9 +12,7 @@ class AllowParty {
     });
 
     if (!donoFesta) {
-      return resposta
-        .status(404)
-        .json({ error: "Dono da festa não encontrado" });
+      return res.status(404).json({ error: "Dono da festa não encontrado" });
     }
 
     // Encontre a festa
@@ -23,14 +21,12 @@ class AllowParty {
     });
 
     if (!festa) {
-      return resposta.status(404).json({ error: "Festa não encontrada" });
+      return res.status(404).json({ error: "Festa não encontrada" });
     }
 
     // Verifique se o usuário é o dono da festa
     if (festa.ownerId !== donoFesta.id) {
-      return resposta
-        .status(403)
-        .json({ error: "Usuário não é o dono da festa" });
+      return res.status(403).json({ error: "Usuário não é o dono da festa" });
     }
 
     // Encontre o outro usuário
@@ -39,9 +35,7 @@ class AllowParty {
     });
 
     if (!outroUsuario) {
-      return resposta
-        .status(404)
-        .json({ error: "Outro usuário não encontrado" });
+      return res.status(404).json({ error: "Outro usuário não encontrado" });
     }
 
     // Atualize o status do UserParty
@@ -55,7 +49,9 @@ class AllowParty {
         status: "ACCEPTED",
       },
     });
-
+    if (statusAtualizadoUserParty.count === 0) {
+      return res.status(400).json("Este usuario ja esta aceito no grupo");
+    }
     return res.json(statusAtualizadoUserParty);
   }
 }
