@@ -14,7 +14,7 @@ class App {
     this.app.use((req, res, next) => {
       res.header(
         "Access-Control-Allow-Origin",
-        "https://amigo-oculto-neon.vercel.app/"
+        "https://amigo-secreto-react-next.vercel.app/"
       );
       res.header("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS,POST,PUT");
       res.header(
