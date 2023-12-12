@@ -28,7 +28,7 @@ class CreateUser {
         },
       });
       await prisma.$disconnect();
-      return res.status(200).json({ usuarioCriado });
+      return res.status(200).json("sucesso");
     } catch (error) {
       await prisma.$disconnect();
       return res.status(400).json(error);

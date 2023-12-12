@@ -17,11 +17,11 @@ routes.post("/acesso", OwnerAllowParty.set);
 
 routes.post("/criarparty", CreateParty.create);
 
-routes.get("/todasparties", ShowParties.get);
+routes.post("/todasparties", ShowParties.get);
 
 routes.post("/girar", RandomUser.random);
 
-routes.get("/mostraramigos", ShowFriends.get);
+routes.post("/mostraramigos", ShowFriends.get);
 
 routes.get("/", (req, res) => {
   res.send("Teste");

@@ -7,7 +7,8 @@ class CreateParty {
   async create(req, res) {
     const { email, NomeGrupo, quantidadePessoa } = req.body;
     const Tag = generateCode();
-
+    console.log(email);
+    console.log(NomeGrupo);
     const user = await prisma.User.findUnique({
       where: {
         email: email,
@@ -35,7 +36,7 @@ class CreateParty {
           status: "ACCEPTED",
         },
       });
-      return res.status(200).json({ message: "Grupo criado" });
+      return res.status(200).json({ message: "Criado com tag", tag: Tag });
     } catch (error) {
       return res.status(400).json(error);
     }
