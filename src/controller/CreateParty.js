@@ -34,7 +34,7 @@ class CreateParty {
           partyId: CriarGrupo.id,
         },
       });
-      return res.status(200).json({ message: "Usuario Criado" });
+      return res.status(200).json({ message: "Grupo criado" });
     } catch (error) {
       return res.status(400).json(error);
     }
