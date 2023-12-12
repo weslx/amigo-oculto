@@ -3,8 +3,8 @@ import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
 
 class AllowParty {
-  async set(requisicao, resposta) {
-    const { emailUsuario, emailOutroUsuario, tagFesta } = requisicao.body;
+  async set(req, res) {
+    const { emailUsuario, emailOutroUsuario, tagFesta } = req.body; // apenas essa api tem a variavel diferente, nas outras o email = email do usuario
 
     // Encontre o usuário (dono da festa)
     const donoFesta = await prisma.user.findUnique({
