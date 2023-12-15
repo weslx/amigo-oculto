@@ -5,10 +5,15 @@ generator client {
   provider = "prisma-client-js"
 }
 
+// datasource db { // se quiser conectar no vercel
+//   provider = "postgres"
+//   url = env("POSTGRES_PRISMA_URL") // 
+//    directUrl = env("POSTGRES_URL_NON_POOLING") // 
+// }
+
 datasource db {
-  provider = "postgres"
-  url = env("POSTGRES_PRISMA_URL") // uses connection pooling
-   directUrl = env("POSTGRES_URL_NON_POOLING") // uses a direct connection
+  provider = "mysql"
+  url = env("DATABASE_URL") // se quiser conectar local
 }
 
 model User {
