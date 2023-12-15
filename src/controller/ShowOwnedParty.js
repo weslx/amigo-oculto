@@ -4,63 +4,45 @@ const prisma = new PrismaClient();
 
 class ShowParties {
   async get(req, res) {
-    const { email } = req.body;
-    console.log(email);
-    const user = await prisma.user.findUnique({
-      where: { email: email },
-      select: {
-        id: true,
-        nome: true,
-        sobrenome: true,
-        email: true,
-        parties: {
-          select: {
-            userId: true,
-            partyId: true,
-            secretFriendId: true,
-            status: true,
-            party: true,
-            secretFriend: {
-              select: {
-                id: true,
-                nome: true,
-                sobrenome: true,
-                email: true,
-                parties: true,
-                ownedParties: true,
-                secretFriends: true,
-              },
-            },
-          },
-        },
-        ownedParties: true,
-      },
-    });
+    try {
+      const { email } = req.body;
 
-    const ownedparty = await prisma.party.findMany({
-      where: {
-        ownerId: user.id,
-      },
-      include: {
-        users: {
-          include: {
-            user: {
-              select: {
-                id: true,
-                nome: true,
-                sobrenome: true,
-                email: true,
-                parties: true,
-                ownedParties: true,
-                secretFriends: true,
-              },
-            },
-          },
+      const user = await prisma.user.findUnique({
+        where: { email },
+        select: {
+          id: true,
+          nome: true,
+          sobrenome: true,
+          email: true,
+          parties: true,
+          ownedParties: true,
         },
-      },
-    });
+      });
 
-    return res.status(200).json(ownedparty);
+      const ownedparty = await prisma.party.findMany({
+        where: {
+          ownerId: user.id,
+        },
+        include: {
+          users: true,
+        },
+      });
+
+      // Mude esse objeto caso queira uma estrutura diferente
+      const result = {
+        id: user.id,
+        nome: user.nome,
+        sobrenome: user.sobrenome,
+        email: user.email,
+        parties: user.parties,
+        ownedParties: ownedparty,
+      };
+
+      return res.status(200).json(result);
+    } catch (error) {
+      console.error(error);
+      return res.status(500).json({ error: "Ocorreu um erro." });
+    }
   }
 }
 

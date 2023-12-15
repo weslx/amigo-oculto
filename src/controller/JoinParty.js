@@ -22,9 +22,28 @@ class JoinParty {
       },
     });
 
-    // If the party doesn't exist, return an error
     if (!GrupoExistente) {
       return res.status(400).json({ error: "Grupo nao existe" });
+    }
+
+    const userEstaNoGrupo = await prisma.UserParty.findUnique({
+      where: {
+        userId_partyId: {
+          userId: user.id,
+          partyId: GrupoExistente.id,
+        },
+      },
+    });
+
+    if (userEstaNoGrupo) {
+      console.log(userEstaNoGrupo);
+      return res
+        .status(400)
+        .json({
+          error:
+            "Voce ja esta nesse grupo, com o seguinte status: " +
+            userEstaNoGrupo.status,
+        });
     }
 
     try {
@@ -38,7 +57,7 @@ class JoinParty {
     } catch (error) {
       return res
         .status(400)
-        .json("Ocorreu um erro, talvez voce ja esta nesse grupo...");
+        .json({ error: "Ocorreu um erro ao entrar no grupo" });
     }
   }
 }

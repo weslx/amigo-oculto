@@ -36,7 +36,9 @@ class CreateParty {
           status: "ACCEPTED",
         },
       });
-      return res.status(200).json({ message: "Criado com tag", tag: Tag });
+      return res
+        .status(200)
+        .json({ message: "Grupo criado com a seguinte tag: " + Tag });
     } catch (error) {
       return res.status(400).json(error);
     }

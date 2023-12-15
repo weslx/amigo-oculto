@@ -4,11 +4,11 @@ const prisma = new PrismaClient();
 
 class AllowParty {
   async set(req, res) {
-    const { emailUsuario, emailOutroUsuario, tagFesta } = req.body; // apenas essa api tem a variavel diferente, nas outras o email = email do usuario
+    const { emailDono, emailOutroUsuario, tagFesta } = req.body; // apenas essa api tem a variavel diferente, nas outras o email = email do usuario
 
     // Encontre o usuário (dono da festa)
     const donoFesta = await prisma.user.findUnique({
-      where: { email: emailUsuario },
+      where: { email: emailDono },
     });
 
     if (!donoFesta) {
@@ -51,8 +51,9 @@ class AllowParty {
     });
     if (statusAtualizadoUserParty.count === 0) {
       return res.status(400).json("Este usuario ja esta aceito no grupo");
+    } else {
+      return res.status(200).json("Usuario aceito com sucesso");
     }
-    return res.json(statusAtualizadoUserParty);
   }
 }
 

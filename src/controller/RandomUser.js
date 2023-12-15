@@ -28,7 +28,7 @@ class RandomUser {
     if (!party) {
       return res
         .status(404)
-        .json({ error: "Party not found or you are not the owner" });
+        .json({ error: "Grupo nao encontrado, ou voce nao e o dono" });
     }
 
     const users = party.users.map((userParty) => userParty.user);
@@ -37,6 +37,8 @@ class RandomUser {
       const j = Math.floor(Math.random() * (i + 1));
       [users[i], users[j]] = [users[j], users[i]];
     }
+
+    let secretFriends = [];
 
     for (let i = 0; i < users.length; i++) {
       const user = users[i];
@@ -53,9 +55,16 @@ class RandomUser {
           secretFriendId: secretFriend.id,
         },
       });
+
+      secretFriends.push(
+        `${user.nome} agora é um amigo de ${secretFriend.nome}`
+      );
     }
 
-    return res.status(200).json({ message: "Secret friends assigned" });
+    return res.status(200).json({
+      message: "Amigos secretos atribuídos",
+      secretFriends: secretFriends,
+    });
   }
 }
 
