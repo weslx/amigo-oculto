@@ -3,6 +3,7 @@ import { PrismaClient } from "@prisma/client";
 import axios from "axios";
 import fs from "fs";
 import FormData from "form-data";
+import verificaTamanhoDaImagem from "../utils/ConverterByteParaMb.js";
 
 const prisma = new PrismaClient();
 class CreateParty {
@@ -23,6 +24,11 @@ class CreateParty {
       return res.status(400).json({ error: "Usuario nao encontrado" });
     }
 
+    const ImagemEmMb = image.size / (1024 * 1024);
+    if (ImagemEmMb > 5) {
+      fs.unlinkSync(image.path);
+      return res.status(400).json({ error: "A imagem deve ser menor que 5mb" });
+    }
     const form = new FormData();
     form.append("file", fs.createReadStream(image.path));
 
@@ -36,7 +42,7 @@ class CreateParty {
     } catch (error) {
       fs.unlinkSync(image.path);
       return res
-        .status(500)
+        .status(400)
         .json({ error: "Ocorreu um erro ao fazer o upload da imagem" });
     }
 
@@ -64,7 +70,6 @@ class CreateParty {
         .status(200)
         .json({ message: "Grupo criado com a seguinte tag: " + Tag });
     } catch (error) {
-      fs.unlinkSync(image.path);
       return res.status(400).json(error);
     }
   }
