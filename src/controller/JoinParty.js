@@ -36,14 +36,11 @@ class JoinParty {
     });
 
     if (userEstaNoGrupo) {
-      console.log(userEstaNoGrupo);
-      return res
-        .status(400)
-        .json({
-          error:
-            "Voce ja esta nesse grupo, com o seguinte status: " +
-            userEstaNoGrupo.status,
-        });
+      return res.status(400).json({
+        error:
+          "Voce ja esta nesse grupo, com o seguinte status: " +
+          userEstaNoGrupo.status,
+      });
     }
 
     try {

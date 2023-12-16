@@ -5,7 +5,6 @@ const prisma = new PrismaClient();
 class CreateUser {
   async save(req, res) {
     const { nome, sobrenome, email, senha } = req.body;
-    console.log(email);
     if (email === "") {
       return res.status(400).json("Email invalido");
     }

@@ -6,7 +6,6 @@ class ShowFriends {
   async get(req, res) {
     const { email } = req.body;
 
-    // Find the user with the provided email
     const user = await prisma.user.findUnique({
       where: {
         email: email,
@@ -25,7 +24,6 @@ class ShowFriends {
       return res.status(404).json({ error: "User not found" });
     }
 
-    // Prepare the response data
     const responseData = user.parties.map((userParty) => ({
       partyName: userParty.party.NomeGrupo,
       partyTag: userParty.party.Tag,

@@ -27,6 +27,9 @@
     "nodemon": "^3.0.2",
     "prisma": "^5.7.0",
     "sucrase": "^3.34.0",
-    "vercel": "^32.7.0"
+    "vercel": "^32.3.0"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0"
   }
 }

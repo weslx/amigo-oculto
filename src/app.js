@@ -1,9 +1,9 @@
 import express from "express";
 import routes from "./routes/router.js";
 import cors from "cors";
-import multer from "multer"; // Importe o multer
+import multer from "multer";
 
-const upload = multer({ dest: "uploads/" }); // Configure o multer
+const upload = multer({ dest: "uploads/" });
 
 class App {
   constructor() {

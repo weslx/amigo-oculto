@@ -3,7 +3,6 @@ import { PrismaClient } from "@prisma/client";
 import axios from "axios";
 import fs from "fs";
 import FormData from "form-data";
-import verificaTamanhoDaImagem from "../utils/ConverterByteParaMb.js";
 
 const prisma = new PrismaClient();
 class CreateParty {
@@ -12,8 +11,6 @@ class CreateParty {
     const quantidadeInt = parseInt(quantidadePessoa);
     const image = req.file;
     const Tag = generateCode();
-    console.log(email);
-    console.log(NomeGrupo);
     const user = await prisma.User.findUnique({
       where: {
         email: email,
@@ -29,6 +26,7 @@ class CreateParty {
       fs.unlinkSync(image.path);
       return res.status(400).json({ error: "A imagem deve ser menor que 5mb" });
     }
+
     const form = new FormData();
     form.append("file", fs.createReadStream(image.path));
 
@@ -45,8 +43,6 @@ class CreateParty {
         .status(400)
         .json({ error: "Ocorreu um erro ao fazer o upload da imagem" });
     }
-
-    console.log(LinkImagem);
 
     try {
       const CriarGrupo = await prisma.Party.create({
