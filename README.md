@@ -10,6 +10,7 @@ Esta é uma API back-end desenvolvida em Node.js e Express para facilitar a orga
 - Sortear os amigos ocultos
 - Mostrar seus amigos ocultos em vários grupos
 - Mostrar grupos dos quais você é o dono
+- Adicionar imagem ao grupo
 
 ## Instalação
 

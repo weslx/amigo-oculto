@@ -1,6 +1,9 @@
 import express from "express";
 import routes from "./routes/router.js";
 import cors from "cors";
+import multer from "multer"; // Importe o multer
+
+const upload = multer({ dest: "uploads/" }); // Configure o multer
 
 class App {
   constructor() {
@@ -11,6 +14,7 @@ class App {
   middlewares() {
     this.app.use(cors());
     this.app.use(express.json());
+    this.app.use(upload.single("image"));
     this.app.use((req, res, next) => {
       res.header("Access-Control-Allow-Origin", "*");
       res.header("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS,POST,PUT");

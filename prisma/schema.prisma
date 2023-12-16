@@ -31,10 +31,12 @@ model Party {
   id Int @id @default(autoincrement())
   NomeGrupo String?
   Tag String? @unique
+  ImagemGrupo String  @default("https://upload.wikimedia.org/wikipedia/commons/3/3d/1_120_transparent.png")
   quantidadePessoa Int 
   ownerId Int
   owner User @relation(fields: [ownerId], references: [id])
   users UserParty[]
+  
 }
 
 model UserParty {
